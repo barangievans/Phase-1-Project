@@ -1,22 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather App</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dairy Cow Management System</title>
+    <style>
+        /* Nested CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        header, footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        section {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            width: 45%;
+        }
+
+        section h2 {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                flex-direction: column;
+            }
+
+            section {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Weather App</h1>
-    <form id="weatherForm">
-      <input type="text" id="cityInput" placeholder="Enter city name">
-      <button type="submit">Get Weather</button>
-    </form>
-    <div id="weatherInfo">
-      <!-- Weather data will be displayed here -->
-    </div>
-  </div>
-  <script src="script.js"></script>
+    <header>
+        <h1>Dairy Cow Management System</h1>
+    </header>
+    <main>
+        <section id="cowInventory">
+            <h2>Cow Inventory</h2>
+            <div id="cowList">
+                <!-- Display cows dynamically -->
+            </div>
+            <button id="addCowBtn">Add Cow</button>
+        </section>
+
+        <section id="healthMonitoring">
+            <h2>Health Monitoring</h2>
+            <div id="healthRecords">
+                <!-- Display health records dynamically -->
+            </div>
+            <button id="addHealthRecordBtn">Add Health Record</button>
+        </section>
+
+        <section id="financialAnalysis">
+            <h2>Financial Analysis</h2>
+            <div id="financialReports">
+                <!-- Display financial reports dynamically -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Dairy Cow Management System</p>
+    </footer>
+    <script src="app.js"></script>
 </body>
 </html>
