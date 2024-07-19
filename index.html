@@ -3,102 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dairy Cow Management System</title>
+    <title>Dairy Cow Management SPA</title>
     <style>
-        /* Nested CSS styles */
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: #f2f2f2;
+            background-color: #f0f0f0;
         }
-
-        header, footer {
+        header {
             background-color: #333;
             color: #fff;
-            text-align: center;
             padding: 1rem;
+            text-align: center;
         }
-
         main {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
+            max-width: 800px;
+            margin: 0 auto;
             padding: 20px;
         }
-
         section {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
             margin-bottom: 20px;
-            width: 45%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
-        section h2 {
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
+        form {
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
         }
-
         button {
+            padding: 8px 16px;
             background-color: #333;
             color: #fff;
             border: none;
-            padding: 10px 20px;
             cursor: pointer;
-            border-radius: 4px;
-            margin-top: 10px;
         }
-
         button:hover {
             background-color: #555;
         }
-
-        @media (max-width: 768px) {
-            main {
-                flex-direction: column;
-            }
-
-            section {
-                width: 100%;
-            }
+        label {
+            font-weight: bold;
+        }
+        input, select {
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        #cowList, #healthRecords {
+            margin-top: 10px;
+        }
+        #financialData {
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Dairy Cow Management System</h1>
+        <h1>Dairy Cow Management</h1>
     </header>
     <main>
         <section id="cowInventory">
             <h2>Cow Inventory</h2>
-            <div id="cowList">
-                <!-- Display cows dynamically -->
-            </div>
-            <button id="addCowBtn">Add Cow</button>
+            <div id="cowList"></div>
+            <form id="addCowForm">
+                <label for="cowName">Name:</label>
+                <input type="text" id="cowName" required>
+                <label for="cowBreed">Breed:</label>
+                <input type="text" id="cowBreed" required>
+                <label for="cowAge">Age:</label>
+                <input type="number" id="cowAge" required>
+                <button type="submit">Add Cow</button>
+            </form>
         </section>
-
         <section id="healthMonitoring">
             <h2>Health Monitoring</h2>
-            <div id="healthRecords">
-                <!-- Display health records dynamically -->
-            </div>
-            <button id="addHealthRecordBtn">Add Health Record</button>
+            <div id="healthRecords"></div>
+            <form id="addHealthRecordForm">
+                <label for="cowSelect">Select Cow:</label>
+                <select id="cowSelect" required></select>
+                <label for="healthDate">Date:</label>
+                <input type="date" id="healthDate" required>
+                <label for="healthStatus">Health Status:</label>
+                <input type="text" id="healthStatus" required>
+                <button type="submit">Add Record</button>
+            </form>
         </section>
-
         <section id="financialAnalysis">
             <h2>Financial Analysis</h2>
-            <div id="financialReports">
-                <!-- Display financial reports dynamically -->
+            <div id="financialData">
+                <form id="financialForm">
+                    <label for="revenueInput">Revenue:</label>
+                    <input type="number" id="revenueInput" step="0.01" required>
+                    <label for="expensesInput">Expenses:</label>
+                    <input type="number" id="expensesInput" step="0.01" required>
+                    <button type="submit">Calculate Profit</button>
+                </form>
+                <p>Profit: $<span id="profit">0.00</span></p>
             </div>
         </section>
     </main>
-    <footer>
-        <p>&copy; 2024 Dairy Cow Management System</p>
-    </footer>
-    <script src="app.js"></script>
+    <script>
+        // Sample initial data
+        let cows = [
+            { id: 1, name: 'Bessie', breed: 'Holstein', age: 5 },
+            { id: 2, name: 'Daisy', breed: 'Jersey', age: 4 }
+        ];
+
+        let healthRecords = [
+            { cowId: 1, date: '2023-01-15', healthStatus: 'Healthy' },
+            { cowId: 2, date: '2023-01-16', healthStatus: 'Sick' }
+        ];
+
+        // Selecting elements from the DOM
+        const cowList = document.getElementById('cowList');
+        const healthRecordsList = document.getElementById('healthRecords');
+        const revenueInput = document.getElementById('revenueInput');
+        const expensesInput = document.getElementById('expensesInput');
+        const profitSpan = document.getElementById('profit');
+        const addCowForm = document.getElementById('addCowForm');
+        const addHealthRecordForm = document.getElementById('addHealthRecordForm');
+        const cowSelect = document.getElementById('cowSelect');
+        const financialForm = document.getElementById('financialForm');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            displayInitialData();
+            setupEventListeners();
+        });
+
+        // Display initial data
+        function displayInitialData() {
+            displayCows();
+            displayHealthRecords();
+            populateCowSelect();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            addCowForm.addEventListener('submit', addNewCow);
+            addHealthRecordForm.addEventListener('submit', addNewHealthRecord);
+            financialForm.addEventListener('submit', calculateProfit);
+        }
+
+        // Display cows in the cow inventory section
+        function displayCows() {
+            cowList.innerHTML = '';
+            cows.forEach(cow => {
+                const cowItem = document.createElement('div');
+                cowItem.innerHTML = `<p>${cow.name} (${cow.breed}, ${cow.age} years old)</p>`;
+                cowList.appendChild(cowItem);
+            });
+        }
+
+        // Display health records in the health monitoring section
+        function displayHealthRecords() {
+            healthRecordsList.innerHTML = '';
+            healthRecords.forEach(record => {
+                const recordItem = document.createElement('div');
+                recordItem.innerHTML = `<p>Cow ID ${record.cowId} - Date: ${record.date}, Status: ${record.healthStatus}</p>`;
+                healthRecordsList.appendChild(recordItem);
+            });
+        }
+
+        // Populate the cow select dropdown in the health record form
+        function populateCowSelect() {
+            cowSelect.innerHTML = '';
+            cows.forEach(cow => {
+                const option = document.createElement('option');
+                option.textContent = cow.name;
+                option.value = cow.id;
+                cowSelect.appendChild(option);
+            });
+        }
+
+        // Add new cow
+        function addNewCow(event) {
+            event.preventDefault();
+            const newName = document.getElementById('cowName').value;
+            const newBreed = document.getElementById('cowBreed').value;
+            const newAge = parseInt(document.getElementById('cowAge').value);
+
+            if (newName && newBreed && newAge) {
+                const newCow = {
+                    id: cows.length + 1,
+                    name: newName,
+                    breed: newBreed,
+                    age: newAge
+                };
+                cows.push(newCow);
+                displayCows();
+                populateCowSelect();
+                addCowForm.reset();
+            } else {
+                alert('Please fill out all fields.');
+            }
+        }
+
+        // Add new health record
+        function addNewHealthRecord(event) {
+            event.preventDefault();
+            const selectedCowId = parseInt(cowSelect.value);
+            const newDate = document.getElementById('healthDate').value;
+            const newStatus = document.getElementById('healthStatus').value;
+
+            if (selectedCowId && newDate && newStatus) {
+                const newRecord = {
+                    cowId: selectedCowId,
+                    date: newDate,
+                    healthStatus: newStatus
+                };
+                healthRecords.push(newRecord);
+                displayHealthRecords();
+                addHealthRecordForm.reset();
+            } else {
+                alert('Please fill out all fields.');
+            }
+        }
+
+        // Calculate and display profit based on revenue and expenses
+        function calculateProfit(event) {
+            event.preventDefault();
+            const revenue = parseFloat(revenueInput.value) || 0;
+            const expenses = parseFloat(expensesInput.value) || 0;
+            const profit = revenue - expenses;
+            profitSpan.textContent = profit.toFixed(2);
+        }
+    </script>
 </body>
 </html>
