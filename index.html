@@ -143,31 +143,30 @@
             </form>
         </div>
     </div>
-    <script>
-        // Sample initial data
+    <script>// Sample initial data
         let cows = [
-            { id: 1, name: 'Apollo', breed: 'Holstein-Friesian', age: 4},
-            { id: 2, name: 'Ruby', breed: 'Holstein-Friesian', age: 3},
-            { id: 3, name: 'Bessie', breed: 'Holstein-Friesian', age: 5},
+            { id: 1, name: 'Apollo', breed: 'Holstein-Friesian', age: 4 },
+            { id: 2, name: 'Ruby', breed: 'Holstein-Friesian', age: 3 },
+            { id: 3, name: 'Bessie', breed: 'Holstein-Friesian', age: 5 },
             { id: 4, name: 'Daisy', breed: 'Jersey', age: 4 },
-            { id: 5, name: 'Betsie', breed: 'Jersey', age: 4},
-            { id: 6, name: 'Bella', breed: 'Jersey', age: 5},
+            { id: 5, name: 'Betsie', breed: 'Jersey', age: 4 },
+            { id: 6, name: 'Bella', breed: 'Jersey', age: 5 },
             { id: 7, name: 'Bossy', breed: 'Ayrshire', age: 3 },
             { id: 8, name: 'Duke', breed: 'Ayrshire', age: 4 },
-            { id: 9, name: 'Nelly', breed: 'Ayrshire', age: 4},
-            { id: 10, name: 'Dolly', breed: 'Red Swiss', age: 3},
-            { id: 11, name: 'Clara', breed: 'Red Swiss', age: 3},
-            { id: 12, name: 'Rosie', breed: 'Red Swiss', age: 4},
-            { id: 13, name: 'Lulu', breed: 'Brown Swiss', age: 5},
-            { id: 14, name: 'Bubba', breed: 'Brown Swiss', age: 4},
-            { id: 15, name: 'Ann', breed: 'Brown Swiss', age: 3},
+            { id: 9, name: 'Nelly', breed: 'Ayrshire', age: 4 },
+            { id: 10, name: 'Dolly', breed: 'Red Swiss', age: 3 },
+            { id: 11, name: 'Clara', breed: 'Red Swiss', age: 3 },
+            { id: 12, name: 'Rosie', breed: 'Red Swiss', age: 4 },
+            { id: 13, name: 'Lulu', breed: 'Brown Swiss', age: 5 },
+            { id: 14, name: 'Bubba', breed: 'Brown Swiss', age: 4 },
+            { id: 15, name: 'Ann', breed: 'Brown Swiss', age: 3 },
         ];
-
+        
         let healthRecords = [
             { cowId: 1, date: '', healthStatus: 'Healthy' },
             { cowId: 2, date: '', healthStatus: 'Sick' }
         ];
-
+        
         // Selecting elements from the DOM
         const selectCow = document.getElementById('selectCow');
         const cowName = document.getElementById('cowName');
@@ -186,27 +185,27 @@
         const newCowBreedInput = document.getElementById('newCowBreed');
         const newCowAgeInput = document.getElementById('newCowAge');
         const addCowModal = document.getElementById('addCowModal');
-
+        
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             displayInitialData();
             setupEventListeners();
         });
-
+        
         // Display initial data
         function displayInitialData() {
             displayCows();
             displayHealthRecords();
             populateCowSelect();
         }
-
+        
         // Setup event listeners
         function setupEventListeners() {
             addHealthRecordForm.addEventListener('submit', addNewHealthRecord);
             financialForm.addEventListener('submit', calculateProfit);
             selectCow.addEventListener('change', updateCowDetails);
         }
-
+        
         // Display cows in the cow inventory section
         function displayCows() {
             selectCow.innerHTML = ''; // Clear existing options
@@ -217,7 +216,7 @@
                 selectCow.appendChild(option);
             });
         }
-
+        
         // Display health records in the health monitoring section
         function displayHealthRecords() {
             healthRecordsList.innerHTML = '';
@@ -227,7 +226,7 @@
                 healthRecordsList.appendChild(recordItem);
             });
         }
-
+        
         // Populate the cow select dropdown in the health record form
         function populateCowSelect() {
             cowSelect.innerHTML = '';
@@ -238,7 +237,7 @@
                 cowSelect.appendChild(option);
             });
         }
-
+        
         // Update cow details based on selected cow ID
         function updateCowDetails() {
             const selectedCowId = parseInt(selectCow.value);
@@ -251,21 +250,21 @@
                 resetCowDetails();
             }
         }
-
+        
         // Reset cow details form
         function resetCowDetails() {
             cowName.value = '';
             cowBreed.value = '';
             cowAge.value = '';
         }
-
+        
         // Add new health record
         function addNewHealthRecord(event) {
             event.preventDefault();
             const selectedCowId = parseInt(cowSelect.value);
             const newDate = healthDate.value;
             const newStatus = healthStatus.value;
-
+        
             if (selectedCowId && newDate && newStatus) {
                 const newRecord = {
                     cowId: selectedCowId,
@@ -279,13 +278,13 @@
                 alert('Please fill out all fields.');
             }
         }
-
+        
         // Calculate profit
         function calculateProfit(event) {
             event.preventDefault();
             const revenue = parseFloat(revenueInput.value);
             const expenses = parseFloat(expensesInput.value);
-
+        
             if (!isNaN(revenue) && !isNaN(expenses)) {
                 const profit = revenue - expenses;
                 profitSpan.textContent = profit.toFixed(2);
@@ -293,18 +292,18 @@
                 alert('Please enter valid numbers for revenue and expenses.');
             }
         }
-
+        
         // Show modal to add new cow
         function addNewCow() {
             addCowModal.style.display = 'block';
         }
-
+        
         // Save new cow from modal form
         function saveNewCow() {
             const cowNameInput = newCowNameInput.value.trim();
             const cowBreedInput = newCowBreedInput.value.trim();
             const cowAgeInput = parseInt(newCowAgeInput.value);
-
+        
             if (cowNameInput && cowBreedInput && !isNaN(cowAgeInput)) {
                 const newCowId = cows.length + 1; // Generate a new ID (this is just for demonstration)
                 const newCow = {
@@ -320,7 +319,7 @@
                 alert('Please fill out all fields with valid data.');
             }
         }
-
+        
         // Close modal
         function closeModal() {
             addCowModal.style.display = 'none';
@@ -328,19 +327,20 @@
             newCowBreedInput.value = '';
             newCowAgeInput.value = '';
         }
-
+        
         // Clear the cow list
         function clearList() {
             cows = []; // Empty the cows array
             displayCows(); // Update the display
         }
-
+        
         // Close the modal if the user clicks outside of it
         window.onclick = function(event) {
             if (event.target === addCowModal) {
                 closeModal();
             }
         };
+        
     </script>
 </body>
 </html>

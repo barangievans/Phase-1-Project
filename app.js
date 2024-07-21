@@ -1,20 +1,20 @@
    // Sample initial data
-   let cows = [
-    { id: 1, name: 'Apollo', breed: 'Holstein-Friesian', age: 4},
-    { id: 2, name: 'Ruby', breed: 'Holstein-Friesian', age: 3},
-    { id: 3, name: 'Bessie', breed: 'Holstein-Friesian', age: 5},
+let cows = [
+    { id: 1, name: 'Apollo', breed: 'Holstein-Friesian', age: 4 },
+    { id: 2, name: 'Ruby', breed: 'Holstein-Friesian', age: 3 },
+    { id: 3, name: 'Bessie', breed: 'Holstein-Friesian', age: 5 },
     { id: 4, name: 'Daisy', breed: 'Jersey', age: 4 },
-    { id: 5, name: 'Betsie', breed: 'Jersey', age: 4},
-    { id: 6, name: 'Bella', breed: 'Jersey', age: 5},
+    { id: 5, name: 'Betsie', breed: 'Jersey', age: 4 },
+    { id: 6, name: 'Bella', breed: 'Jersey', age: 5 },
     { id: 7, name: 'Bossy', breed: 'Ayrshire', age: 3 },
     { id: 8, name: 'Duke', breed: 'Ayrshire', age: 4 },
-    { id: 9, name: 'Nelly', breed: 'Ayrshire', age: 4},
-    { id: 10, name: 'Dolly', breed: 'Red Swiss', age: 3},
-    { id: 11, name: 'Clara', breed: 'Red Swiss', age: 3},
-    { id: 12, name: 'Rosie', breed: 'Red Swiss', age: 4},
-    { id: 13, name: 'Lulu', breed: 'Brown Swiss', age: 5},
-    { id: 14, name: 'Bubba', breed: 'Brown Swiss', age: 4},
-    { id: 15, name: 'Ann', breed: 'Brown Swiss', age: 3},
+    { id: 9, name: 'Nelly', breed: 'Ayrshire', age: 4 },
+    { id: 10, name: 'Dolly', breed: 'Red Swiss', age: 3 },
+    { id: 11, name: 'Clara', breed: 'Red Swiss', age: 3 },
+    { id: 12, name: 'Rosie', breed: 'Red Swiss', age: 4 },
+    { id: 13, name: 'Lulu', breed: 'Brown Swiss', age: 5 },
+    { id: 14, name: 'Bubba', breed: 'Brown Swiss', age: 4 },
+    { id: 15, name: 'Ann', breed: 'Brown Swiss', age: 3 },
 ];
 
 let healthRecords = [
