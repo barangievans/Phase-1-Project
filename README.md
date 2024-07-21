@@ -18,7 +18,7 @@ To use this application locally, follow these steps:
 
 1. **Clone the repository**:
    ```bash
-   git clone <repository-url>
+   Clone the following repository, url link : https://github.com/barangievans/Phase-1-Project
    cd <repository-folder>
 Open the HTML file:
 Open index.html in your preferred web browser.
