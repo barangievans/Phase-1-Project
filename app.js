@@ -1,4 +1,4 @@
-  // Sample initial data
+// Sample initial data
 let cows = [
     { id: 1, name: 'Apollo', breed: 'Holstein-Friesian', age: 4},
     { id: 2, name: 'Ruby', breed: 'Holstein-Friesian', age: 3},
@@ -15,6 +15,11 @@ let cows = [
     { id: 13, name: 'Lulu', breed: 'Brown Swiss', age: 5},
     { id: 14, name: 'Bubba', breed: 'Brown Swiss', age: 4},
     { id: 15, name: 'Ann', breed: 'Brown Swiss', age: 3},
+];
+
+let healthRecords = [
+    { cowName: '', date: '', status: 'Healthy' },
+    { cowName: '', date: '', status: 'Sick' },
 ];
 
 // Selecting elements from the DOM
@@ -35,6 +40,7 @@ const newCowNameInput = document.getElementById('newCowName');
 const newCowBreedInput = document.getElementById('newCowBreed');
 const newCowAgeInput = document.getElementById('newCowAge');
 const addCowModal = document.getElementById('addCowModal');
+const clearRecordsButton = document.getElementById('clearRecordsButton');
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
@@ -54,6 +60,7 @@ function setupEventListeners() {
     addHealthRecordForm.addEventListener('submit', addNewHealthRecord);
     financialForm.addEventListener('submit', calculateProfit);
     cowSelect.addEventListener('change', updateCowDetails);
+    clearRecordsButton.addEventListener('click', clearHealthRecords);
 }
 
 // Display cows in the cow inventory section
@@ -70,11 +77,17 @@ function displayCows() {
 // Display health records in the health monitoring section
 function displayHealthRecords() {
     healthRecordsList.innerHTML = '';
-    healthRecords.forEach(record => {
-        const recordItem = document.createElement('div');
-        recordItem.innerHTML = `<p>Cow: ${record.cowName}</p><p>Date: ${record.date}</p><p>Status: ${record.status}</p>`;
-        healthRecordsList.appendChild(recordItem);
-    });
+    if (healthRecords.length === 0) {
+        const noRecordsMessage = document.createElement('p');
+        noRecordsMessage.textContent = 'No health records available.';
+        healthRecordsList.appendChild(noRecordsMessage);
+    } else {
+        healthRecords.forEach(record => {
+            const recordItem = document.createElement('div');
+            recordItem.innerHTML = `<p>Cow: ${record.cowName}</p><p>Date: ${record.date}</p><p>Status: ${record.status}</p>`;
+            healthRecordsList.appendChild(recordItem);
+        });
+    }
 }
 
 // Populate the cow select dropdown in the health monitoring section
@@ -121,6 +134,12 @@ function addNewHealthRecord(event) {
     healthRecords.push(newRecord);
     displayHealthRecords();
     clearHealthRecordForm();
+}
+
+// Clear health records
+function clearHealthRecords() {
+    healthRecords = [];
+    displayHealthRecords();
 }
 
 // Calculate profit
@@ -176,10 +195,3 @@ function clearHealthRecordForm() {
     healthDate.value = '';
     healthStatus.value = '';
 }
-
-// Sample initial data
-let healthRecords = [
-    { cowName: 'Apollo', date: '2024-07-15', status: 'Healthy' },
-    { cowName: 'Ruby', date: '2024-07-16', status: 'Sick' },
-    { cowName: 'Bessie', date: '2024-07-17', status: 'Healthy' },
-];
