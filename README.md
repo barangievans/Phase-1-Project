@@ -38,6 +38,7 @@ Select a cow from the dropdown in the Health Monitoring section, fill out the he
 
 Financial Analysis:
 Enter revenue and expense data in the Financial Analysis section and click "Calculate Profit" to see the calculated profit based on your inputs.
+Find the hosted url:https://barangievans.github.io/Phase-1-Project/
 
 Contributing
 Contributions are welcome! If you have any improvements or feature suggestions, please fork the repository and create a pull request or open an issue to discuss changes.

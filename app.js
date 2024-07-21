@@ -18,15 +18,14 @@ let cows = [
 ];
 
 let healthRecords = [
-    { cowName: '', date: '', status: 'Healthy' },
-    { cowName: '', date: '', status: 'Sick' },
+    // Initially, there are no records
 ];
 
 // Selecting elements from the DOM
 const selectCow = document.getElementById('selectCow');
 const cowName = document.getElementById('cowName');
-const cowBreed = document.getElementById('cowBreed');
-const cowAge = document.getElementById('cowAge');
+const cowBreedInput = document.getElementById('cowBreed');
+const cowAgeInput = document.getElementById('cowAge');
 const healthRecordsList = document.getElementById('healthRecords');
 const revenueInput = document.getElementById('revenueInput');
 const expensesInput = document.getElementById('expensesInput');
@@ -59,7 +58,7 @@ function displayInitialData() {
 function setupEventListeners() {
     addHealthRecordForm.addEventListener('submit', addNewHealthRecord);
     financialForm.addEventListener('submit', calculateProfit);
-    cowSelect.addEventListener('change', updateCowDetails);
+    selectCow.addEventListener('change', updateCowDetails); // Changed to selectCow
     clearRecordsButton.addEventListener('click', clearHealthRecords);
 }
 
@@ -77,12 +76,16 @@ function displayCows() {
 // Display health records in the health monitoring section
 function displayHealthRecords() {
     healthRecordsList.innerHTML = '';
-    if (healthRecords.length === 0) {
+
+    // Filter out records that are empty or have no cowName
+    const filteredRecords = healthRecords.filter(record => record.cowName);
+
+    if (filteredRecords.length === 0) {
         const noRecordsMessage = document.createElement('p');
         noRecordsMessage.textContent = 'No health records available.';
         healthRecordsList.appendChild(noRecordsMessage);
     } else {
-        healthRecords.forEach(record => {
+        filteredRecords.forEach(record => {
             const recordItem = document.createElement('div');
             recordItem.innerHTML = `<p>Cow: ${record.cowName}</p><p>Date: ${record.date}</p><p>Status: ${record.status}</p>`;
             healthRecordsList.appendChild(recordItem);
@@ -103,23 +106,23 @@ function populateCowSelect() {
 
 // Update cow details in the cow inventory section
 function updateCowDetails() {
-    const selectedCowId = parseInt(cowSelect.value);
-    const selectedCow = cows.find(cow => cow.id === selectedCowId);
+    const selectedCowId = parseInt(selectCow.value); // Get the selected cow id
+    const selectedCow = cows.find(cow => cow.id === selectedCowId); // Find cow by id
     if (selectedCow) {
-        cowName.value = selectedCow.name;
-        cowBreed.value = selectedCow.breed;
-        cowAge.value = selectedCow.age;
+        cowName.value = selectedCow.name; // Update cow name
+        cowBreedInput.value = selectedCow.breed; // Update breed input
+        cowAgeInput.value = selectedCow.age; // Update age input
     } else {
-        cowName.value = '';
-        cowBreed.value = '';
-        cowAge.value = '';
+        cowName.value = ''; // Clear name input
+        cowBreedInput.value = ''; // Clear breed input
+        cowAgeInput.value = ''; // Clear age input
     }
 }
 
 // Add new health record
 function addNewHealthRecord(event) {
     event.preventDefault();
-    const selectedCowId = parseInt(cowSelect.value);
+    const selectedCowId = parseInt(cowSelect.value); // Get the selected cow id
     const selectedCow = cows.find(cow => cow.id === selectedCowId);
     if (!selectedCow || !healthDate.value || !healthStatus.value) {
         alert('Please select a cow and fill in all fields.');
@@ -195,3 +198,6 @@ function clearHealthRecordForm() {
     healthDate.value = '';
     healthStatus.value = '';
 }
+
+
+
